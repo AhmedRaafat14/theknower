@@ -1,0 +1,36 @@
+version: '3'
+
+services:
+  mysql:
+    build:
+      context: ./docker-containers/database
+    environment:
+      - MYSQL_ROOT_PASSWORD=S4Tkt8S6XxeP
+    restart: on-failure
+
+  php:
+    build:
+      context: ./docker-containers/php-fpm
+    volumes:
+      - ./phpfunctions:/var/www/phpfunctions:cached
+      - ~/ssh/id_rsa:/root/.ssh/id_rsa
+      - ./docker-containers/php-fpm/php-ini-local.ini:/usr/local/etc/php/conf.d/php.ini
+    depends_on:
+      - mysql
+    restart: on-failure
+
+  nginx:
+    build:
+      context: ./docker-containers/nginx
+    volumes:
+      - ./phpfunctions:/var/www/phpfunctions:cached
+      - ./docker-containers/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./docker-containers/nginx/sites:/etc/nginx/sites-available
+      - ./docker-containers/nginx/conf.d:/etc/nginx/conf.d
+    depends_on:
+      - php
+      - mysql
+    restart: on-failure
+    ports:
+      - "80:80"
+      - "443:443"
