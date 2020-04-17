@@ -5,11 +5,12 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  */
-class User
+class User implements UserInterface
 {
     /**
      * @ORM\Id()
@@ -21,7 +22,7 @@ class User
     /**
      * @ORM\Column(type="string", length=150)
      */
-    private $name;
+    private $username;
 
     /**
      * @ORM\Column(type="string", length=200)
@@ -63,6 +64,11 @@ class User
      */
     private $contributions;
 
+    /**
+     * @ORM\Column(type="string", length=150)
+     */
+    private $github_handle;
+
     public function __construct()
     {
         $this->contributions = new ArrayCollection();
@@ -71,18 +77,6 @@ class User
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getName(): ?string
-    {
-        return $this->name;
-    }
-
-    public function setName(string $name): self
-    {
-        $this->name = $name;
-
-        return $this;
     }
 
     public function getGithubId(): ?string
@@ -198,5 +192,61 @@ class User
         }
 
         return $this;
+    }
+
+    public function getGithubHandle(): ?string
+    {
+        return $this->github_handle;
+    }
+
+    public function setGithubHandle(string $github_handle): self
+    {
+        $this->github_handle = $github_handle;
+
+        return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getRoles()
+    {
+        return array('ROLE_USER');
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getPassword()
+    {
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getSalt()
+    {
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getUsername()
+    {
+        return $this->username;
+    }
+
+    public function setUsername($username)
+    {
+        $this->username = $username;
+
+        return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function eraseCredentials()
+    {
     }
 }

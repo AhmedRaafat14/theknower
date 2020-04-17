@@ -1,4 +1,4 @@
-# PHPFunctions
+# PHPPlanet
 
 How many times you have searching for same function over & over & over again!
 the purpose from this project is to help you
@@ -35,7 +35,7 @@ $ docker-compose exec php composer install
 ```cmd
 $ sudo vim /etc/hosts
 ```
-then add this line to the file `127.0.0.1   phpfunctions.local`
+then add this line to the file `127.0.0.1   phpplanet.local`
 
 5. Run the following command as a step to improve you app load performance:
 ```cmd

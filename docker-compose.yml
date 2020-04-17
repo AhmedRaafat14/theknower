@@ -15,20 +15,22 @@ services:
     build:
       context: ./docker-containers/php-fpm
     volumes:
-      - ./phpfunctions:/var/www/phpfunctions:cached
+      - ./phpplanet:/var/www/phpplanet:cached
       - ~/ssh/id_rsa:/root/.ssh/id_rsa
       - ./docker-containers/php-fpm/php-ini-local.ini:/usr/local/etc/php/conf.d/php.ini
     depends_on:
       - database
     environment:
       - DATABASE_URL=mysql://${DATABASE_USER}:${DATABASE_PASSWORD}@database:3306/${DATABASE_NAME}?serverVersion=5.7
+      - OAUTH_GITHUB_ID=${OAUTH_GITHUB_ID}
+      - OAUTH_GITHUB_SECRET=${OAUTH_GITHUB_SECRET}
     restart: on-failure
 
   nginx:
     build:
       context: ./docker-containers/nginx
     volumes:
-      - ./phpfunctions:/var/www/phpfunctions:cached
+      - ./phpplanet:/var/www/phpplanet:cached
       - ./docker-containers/nginx/nginx.conf:/etc/nginx/nginx.conf
       - ./docker-containers/nginx/sites:/etc/nginx/sites-available
       - ./docker-containers/nginx/conf.d:/etc/nginx/conf.d
