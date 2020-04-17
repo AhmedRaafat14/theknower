@@ -19,25 +19,32 @@ or relates to common PHP frameworks.
 
 **Run:**
 
-1. move to the project folder and run:
+1. Copy the `.env.dist` to `.env` file and update the details:
+
+2. move to the project folder and run:
 ```cmd
 $ docker-compose up -d --build
 ```
 
-2. Run the composer install/update command to install required dependencies:
+3. Run the composer install/update command to install required dependencies:
 ```cmd
 $ docker-compose exec php composer install
 ```
 
-3. When it is done make sure to update your hosts file:
+4. When it is done make sure to update your hosts file:
 ```cmd
 $ sudo vim /etc/hosts
 ```
 then add this line to the file `127.0.0.1   phpfunctions.local`
 
-4. Run the following command as a step to improve you app load performance:
+5. Run the following command as a step to improve you app load performance:
 ```cmd
 $ docker-compose exec php composer dump-autoload --no-dev --classmap-authoritative
+```
+
+6. Run the DB migration:
+```cmd
+$ docker-compose exec php bin/console doctrine:migrations:migrate
 ```
 After it is done you can find the project at http://phpfunctions.local
 

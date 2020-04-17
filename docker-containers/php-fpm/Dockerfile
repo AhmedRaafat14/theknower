@@ -6,7 +6,7 @@ RUN apt-get update -y \
     && docker-php-ext-configure intl \
     && docker-php-ext-install intl \
     && docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql \
-    && docker-php-ext-install pdo pdo_pgsql pgsql \
+    && docker-php-ext-install mysqli pdo_mysql pdo pdo_pgsql pgsql \
     && docker-php-ext-install zip xml
 
 # Install composer: Remove the --version or update it once symfon/flex updated to support composer ^2
@@ -20,5 +20,7 @@ RUN "date"
 WORKDIR /var/www/phpfunctions
 
 CMD ["php-fpm"]
+
+#CMD composer install ; wait-for-it database:3306 -- bin/console doctrine:migrations:migrate ;  php-fpm
 
 EXPOSE 9000
