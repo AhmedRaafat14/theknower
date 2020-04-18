@@ -207,29 +207,29 @@ class User implements UserInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getRoles()
     {
-        return array('ROLE_USER');
+        return ['ROLE_USER'];
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getPassword()
     {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getSalt()
     {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getUsername()
     {
@@ -244,7 +244,7 @@ class User implements UserInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function eraseCredentials()
     {

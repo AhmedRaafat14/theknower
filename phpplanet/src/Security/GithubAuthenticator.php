@@ -18,20 +18,17 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
 
 class GithubAuthenticator extends SocialAuthenticator
 {
-    /** @var ClientRegistry $clientRegistry */
+    /** @var ClientRegistry */
     private $clientRegistry;
 
-    /** @var EntityManagerInterface $em */
+    /** @var EntityManagerInterface */
     private $em;
 
-    /** @var RouterInterface $router */
+    /** @var RouterInterface */
     private $router;
 
     /**
      * GithubAuthenticator constructor.
-     * @param ClientRegistry $clientRegistry
-     * @param EntityManagerInterface $em
-     * @param RouterInterface $router
      */
     public function __construct(ClientRegistry $clientRegistry, EntityManagerInterface $em, RouterInterface $router)
     {
@@ -42,13 +39,13 @@ class GithubAuthenticator extends SocialAuthenticator
 
     public function supports(Request $request): bool
     {
-        # continue ONLY if the current ROUTE matches the check ROUTE
-        return $request->attributes->get('_route') === 'connect_github_check';
+        // continue ONLY if the current ROUTE matches the check ROUTE
+        return 'connect_github_check' === $request->attributes->get('_route');
     }
 
     public function getCredentials(Request $request)
     {
-        # This method only called if the `supports()` function returned TRUE
+        // This method only called if the `supports()` function returned TRUE
         return $this->fetchAccessToken($this->getGithubClient());
     }
 
@@ -59,12 +56,12 @@ class GithubAuthenticator extends SocialAuthenticator
 
         $githubUser->getEmail();
 
-        # Check if this user logged-in before
+        // Check if this user logged-in before
         $existingUser = $this->em->getRepository(User::class)->findOneBy(['github_id' => $githubUser->getId()]);
         if ($existingUser) {
             $user = $existingUser;
         } else {
-            # Create a new user
+            // Create a new user
             $user = new User();
             $user->setUsername($githubUser->getName());
             $user->setGithubId($githubUser->getId());
@@ -80,9 +77,6 @@ class GithubAuthenticator extends SocialAuthenticator
         return $user;
     }
 
-    /**
-     * @return GithubClient
-     */
     public function getGithubClient(): GithubClient
     {
         return $this->clientRegistry->getClient('github');
@@ -91,6 +85,7 @@ class GithubAuthenticator extends SocialAuthenticator
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception): Response
     {
         $errorMessage = strtr($exception->getMessageKey(), $exception->getMessageData());
+
         return new Response($errorMessage, Response::HTTP_FORBIDDEN);
     }
 
@@ -101,7 +96,7 @@ class GithubAuthenticator extends SocialAuthenticator
 
     public function start(Request $request, AuthenticationException $authException = null): RedirectResponse
     {
-        # When the auth is needed but not sent, the page where users choose the auth provider
+        // When the auth is needed but not sent, the page where users choose the auth provider
         return new RedirectResponse('user', Response::HTTP_TEMPORARY_REDIRECT);
     }
 }
