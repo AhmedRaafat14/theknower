@@ -22,14 +22,9 @@ class Contribution
     private $title;
 
     /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $description;
-
-    /**
      * @ORM\Column(type="text")
      */
-    private $code;
+    private $description;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
@@ -87,18 +82,6 @@ class Contribution
     public function setDescription(?string $description): self
     {
         $this->description = $description;
-
-        return $this;
-    }
-
-    public function getCode(): ?string
-    {
-        return $this->code;
-    }
-
-    public function setCode(string $code): self
-    {
-        $this->code = $code;
 
         return $this;
     }

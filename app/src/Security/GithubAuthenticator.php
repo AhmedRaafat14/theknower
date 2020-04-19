@@ -29,6 +29,9 @@ class GithubAuthenticator extends SocialAuthenticator
 
     /**
      * GithubAuthenticator constructor.
+     * @param ClientRegistry $clientRegistry
+     * @param EntityManagerInterface $em
+     * @param RouterInterface $router
      */
     public function __construct(ClientRegistry $clientRegistry, EntityManagerInterface $em, RouterInterface $router)
     {
@@ -97,6 +100,6 @@ class GithubAuthenticator extends SocialAuthenticator
     public function start(Request $request, AuthenticationException $authException = null): RedirectResponse
     {
         // When the auth is needed but not sent, the page where users choose the auth provider
-        return new RedirectResponse('user', Response::HTTP_TEMPORARY_REDIRECT);
+        return new RedirectResponse('home', Response::HTTP_TEMPORARY_REDIRECT);
     }
 }

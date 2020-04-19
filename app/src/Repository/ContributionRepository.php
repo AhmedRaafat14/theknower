@@ -19,32 +19,9 @@ class ContributionRepository extends ServiceEntityRepository
         parent::__construct($registry, Contribution::class);
     }
 
-    // /**
-    //  * @return Contribution[] Returns an array of Contribution objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function save(Contribution $contribution): void
     {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('c.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+        $this->getEntityManager()->persist($contribution);
+        $this->getEntityManager()->flush();
     }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Contribution
-    {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }
