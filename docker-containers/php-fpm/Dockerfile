@@ -12,6 +12,11 @@ RUN apt-get update -y \
 # Install composer: Remove the --version or update it once symfon/flex updated to support composer ^2
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer --version=1.7.2
 
+# Will uese the script to wait untill the application be up so we can run
+# composer install or Db migration commands: https://github.com/vishnubob/wait-for-it
+COPY wait-for-it.sh /usr/bin/wait-for-it
+RUN chmod +x /usr/bin/wait-for-it
+
 # Set timezone
 RUN rm /etc/localtime
 RUN ln -s /usr/share/zoneinfo/Europe/Amsterdam /etc/localtime
@@ -21,6 +26,7 @@ WORKDIR /var/www/theknower
 
 CMD ["php-fpm"]
 
-#CMD composer install ; wait-for-it database:3306 -- bin/console doctrine:migrations:migrate ;  php-fpm
+# Using the `wait-for-it` script
+CMD composer install ; wait-for-it database:3306 -- bin/console doctrine:migrations:migrate ;  php-fpm
 
 EXPOSE 9000
