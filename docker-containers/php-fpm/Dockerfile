@@ -17,7 +17,7 @@ RUN rm /etc/localtime
 RUN ln -s /usr/share/zoneinfo/Europe/Amsterdam /etc/localtime
 RUN "date"
 
-WORKDIR /var/www/phpplanet
+WORKDIR /var/www/theknower
 
 CMD ["php-fpm"]
 

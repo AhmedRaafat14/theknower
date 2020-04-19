@@ -1,6 +1,6 @@
 FROM nginx:latest
 
-WORKDIR /var/www/phpplanet
+WORKDIR /var/www/theknower
 
 CMD ["nginx"]
 

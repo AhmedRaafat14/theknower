@@ -1,12 +1,21 @@
-# PHPPlanet
+# TheKnower
+
+> #### From the community to the community.
 
 How many times you have searching for same function over & over & over again!
-the purpose from this project is to help you
-find this functions in one place organized and well
-written waiting for you to copy it or learn it.
-Not just that the project will grow to even
-give you snippets or functions that based
-or relates to common PHP frameworks.
+or even a class or you wrote some function or class 
+that you think it can be helpful for some other developers
+like you!
+
+That is who I created this project a place you can find
+popular PHP functions/classes or whatever related that is
+shared by the PHP community to help other PHP developers.
+
+You will not only find people sharing native PHP code
+experience & Knowledge but also frameworks related stuff
+will be there. It is all in your hands you decide what to
+put there, what code you want to tell other developers
+how awesome you are in building it and everyone else can use it.
 
 **Requirements:**
 
@@ -46,7 +55,7 @@ $ docker-compose exec php composer dump-autoload --no-dev --classmap-authoritati
 ```cmd
 $ docker-compose exec php bin/console doctrine:migrations:migrate
 ```
-After it is done you can find the project at http://phpfunctions.local
+After it is done you can find the project at http://theknower.local
 
 **Useful Commands:**
 
