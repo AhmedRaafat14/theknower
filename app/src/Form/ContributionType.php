@@ -17,10 +17,23 @@ class ContributionType extends AbstractType
             ->add(
                 'title',
                 TextType::class,
-                ['required' => true]
+                array(
+                    'required' => true,
+                    'attr' => array('placeholder' => 'Write descriptive title about this contribution')
+                )
             )
-            ->add('summary', TextType::class, ['required' => true])
-            ->add('description', TextareaType::class, ['required' => true])
+            ->add(
+                'summary',
+                TextType::class,
+                array(
+                    'required' => true,
+                    'attr' => array(
+                        'placeholder' => 'Write small summary about the usage/importance of this contribution'
+                    )
+                )
+            )
+            ->add(
+                'description',TextareaType::class, ['label' => 'Contribution Body', 'required' => true])
         ;
     }
 

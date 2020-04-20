@@ -98,6 +98,6 @@ class GithubAuthenticator extends SocialAuthenticator
     public function start(Request $request, AuthenticationException $authException = null): RedirectResponse
     {
         // When the auth is needed but not sent, the page where users choose the auth provider
-        return new RedirectResponse('home', Response::HTTP_TEMPORARY_REDIRECT);
+        return new RedirectResponse('/', Response::HTTP_TEMPORARY_REDIRECT);
     }
 }

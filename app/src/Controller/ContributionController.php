@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Contribution;
 use App\Form\ContributionType;
 use App\Repository\ContributionRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -32,6 +33,7 @@ class ContributionController extends AbstractController
 
     /**
      * @Route("/contribution", methods={"GET", "POST"}, name="add_contribution")
+     * @IsGranted("ROLE_USER")
      */
     public function add(Request $request): Response
     {
@@ -48,11 +50,13 @@ class ContributionController extends AbstractController
 
             $this->contributionRepository->save($contribution);
 
-            $this->addFlash('string', 'Contribution Added successfully!');
+            $this->addFlash('success', 'Contribution Added successfully!');
 
             return $this->redirectToRoute('home');
         }
 
-        return $this->render('contribution/add.html.twig', ['form' => $form->createView()]);
+        return $this->render('contribution/add.html.twig', [
+            'form' => $form->createView()
+        ]);
     }
 }
