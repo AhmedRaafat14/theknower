@@ -7,15 +7,20 @@
             <h1>What we have today!</h1>
         </div>
         {% if app.user is empty %}
-            <div class="col-6">
-                <a class="btn btn-primary btn-lg" href="{{ path('connect_github_start') }}">
-                    <i class="fa fa-sign-in-alt"></i> Log-in
+            <div class="col-md-3">
+                <a class="btn btn-primary btn-social btn-github" href="{{ path('connect_github_start') }}">
+                    <span class="fab fa-github pr-1"></span> Sign in with Github
                 </a>
             </div>
         {% else %}
-            <div class="col-6">
+            <div class="col-md-3">
                 <a class="btn btn-primary btn-lg" href="{{ path('add_contribution') }}">
                     <i class="fa fa-plus"></i> Contribute
+                </a>
+            </div>
+            <div class="col-md-3">
+                <a href="{{ path('app_logout') }}" class="btn btn-dark">
+                    <i class="fas fa-sign-out-alt pr-1"></i>Log out
                 </a>
             </div>
         {% endif %}
