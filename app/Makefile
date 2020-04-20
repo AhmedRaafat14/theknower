@@ -16,12 +16,6 @@ cc:
 clear: cc
 	rm -rf var/logs/*
 
-fix:
-	./vendor/bin/php-cs-fixer fix
-
-fix-diff:
-	./vendor/bin/php-cs-fixer fix --diff --dry-run -v
-
 test: cc composer
 	bin/phpunit -c . $(PHPUNIT_OPTS) --log-junit build/phpunit.xml
 

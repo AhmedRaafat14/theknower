@@ -29,17 +29,17 @@ class Contribution
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    private $comments_count;
+    private $comments_count = 0;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    private $likes_count;
+    private $likes_count = 0;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    private $bookmarks_count;
+    private $bookmarks_count = 0;
 
     /**
      * @ORM\Column(type="datetime")
@@ -56,6 +56,11 @@ class Contribution
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;
+
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $summary;
 
     public function getId(): ?int
     {
@@ -154,6 +159,18 @@ class Contribution
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getSummary(): ?string
+    {
+        return $this->summary;
+    }
+
+    public function setSummary(string $summary): self
+    {
+        $this->summary = $summary;
 
         return $this;
     }

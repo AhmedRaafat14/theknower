@@ -29,9 +29,6 @@ class GithubAuthenticator extends SocialAuthenticator
 
     /**
      * GithubAuthenticator constructor.
-     * @param ClientRegistry $clientRegistry
-     * @param EntityManagerInterface $em
-     * @param RouterInterface $router
      */
     public function __construct(ClientRegistry $clientRegistry, EntityManagerInterface $em, RouterInterface $router)
     {
@@ -73,6 +70,7 @@ class GithubAuthenticator extends SocialAuthenticator
         }
 
         $user->setGithubHandle($githubUser->getNickname());
+        $user->setAvatar($githubUser->toArray()['avatar_url']);
 
         $this->em->persist($user);
         $this->em->flush();
@@ -94,7 +92,7 @@ class GithubAuthenticator extends SocialAuthenticator
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey): RedirectResponse
     {
-        return new RedirectResponse($this->router->generate('user'));
+        return new RedirectResponse($this->router->generate('home'));
     }
 
     public function start(Request $request, AuthenticationException $authException = null): RedirectResponse

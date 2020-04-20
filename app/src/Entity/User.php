@@ -32,17 +32,17 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    private $bookmarks_count;
+    private $bookmarks_count = 0;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    private $comments_count;
+    private $comments_count = 0;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    private $likes_count;
+    private $likes_count = 0;
 
     /**
      * @ORM\Column(type="datetime")
@@ -57,7 +57,7 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    private $contributions_count;
+    private $contributions_count = 0;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Contribution", mappedBy="user")
@@ -68,6 +68,11 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=150)
      */
     private $github_handle;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $avatar;
 
     public function __construct()
     {
@@ -209,7 +214,7 @@ class User implements UserInterface
     /**
      * {@inheritdoc}
      */
-    public function getRoles()
+    public function getRoles(): array
     {
         return ['ROLE_USER'];
     }
@@ -248,5 +253,17 @@ class User implements UserInterface
      */
     public function eraseCredentials()
     {
+    }
+
+    public function getAvatar(): ?string
+    {
+        return $this->avatar;
+    }
+
+    public function setAvatar(?string $avatar): self
+    {
+        $this->avatar = $avatar;
+
+        return $this;
     }
 }
