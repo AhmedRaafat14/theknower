@@ -24,14 +24,35 @@
     <div class="row">
         {% if contributions is not empty %}
             {% for contribution in contributions %}
-                <div class="col-md-12">
-                    <h1>{{ contribution.title }}</h1>
-                    <p>{{ contribution.description }}</p>
+                <div class="card w-75 text-left border-info mb-3">
+                    <div class="card-body">
+                        <h4 class="card-title">{{ contribution.title }}</h4>
+                        <h6 class="card-subtitle mb-2 text-muted">By {{ contribution.user.username }}</h6>
+                        <p class="card-text">{{ contribution.summary }}</p>
+                    </div>
+                    <div class="card-footer rounded-bottom mdb-color lighten-3 pt-3">
+                        <ul class="list-unstyled list-inline font-small">
+                            <li class="list-inline-item pr-2 white-text">
+                                <i class="fas fa-clock pr-1"></i>{{ contribution.createdAt|date('d/m/y') }}
+                            </li>
+                            <li class="list-inline-item pr-2">
+                                <i class="fas fa-comments pr-1"></i>{{ contribution.commentsCount }}
+                            </li>
+                            <li class="list-inline-item pr-2">
+                                <i class="fas fa-thumbs-up pr-1"></i>{{ contribution.likesCount }}
+                            </li>
+                            <li class="list-inline-item">
+                                <i class="fas fa-bookmark pr-1"> </i>{{ contribution.bookmarksCount }}
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             {% endfor %}
         {% else %}
             <div class="col-md-12">
-                <h5>Nothing there yet!</h5>
+                <div class="alert alert-info" role="alert">
+                    There is no contributions yet!
+                </div>
             </div>
         {% endif %}
     </div>

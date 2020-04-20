@@ -19,6 +19,7 @@ class ContributionType extends AbstractType
                 TextType::class,
                 ['required' => true]
             )
+            ->add('summary', TextType::class, ['required' => true])
             ->add('description', TextareaType::class, ['required' => true])
         ;
     }
