@@ -9,6 +9,13 @@ RUN apt-get update -y \
     && docker-php-ext-install mysqli pdo_mysql pdo pdo_pgsql pgsql \
     && docker-php-ext-install zip xml
 
+# we install nodejs & yarn as we need it for the webpack encore: https://symfony.com/doc/current/frontend.html
+RUN curl https://deb.nodesource.com/setup_12.x | bash
+RUN curl https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
+RUN apt-get update && apt-get install -y nodejs yarn
+
+
 # Install composer: Remove the --version or update it once symfon/flex updated to support composer ^2
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer --version=1.7.2
 
