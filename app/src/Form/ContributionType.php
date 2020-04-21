@@ -33,7 +33,10 @@ class ContributionType extends AbstractType
                 )
             )
             ->add(
-                'description',TextareaType::class, ['label' => 'Contribution Body', 'required' => true])
+                'description',
+                TextareaType::class,
+                array('label' => 'Contribution Body', 'required' => true,)
+            )
         ;
     }
 

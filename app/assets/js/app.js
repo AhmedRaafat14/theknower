@@ -11,5 +11,9 @@ import '../css/app.css';
 // Need jQuery? then uncomment to import it.
 import $ from 'jquery';
 import 'bootstrap';
+import EasyMDE from 'easymde';
+import hljs from 'highlight.js';
+import 'highlight.js/styles/github.css';
 
-console.log('Hello Webpack Encore! Edit me in assets/js/app.js');
+window.EasyMDE = EasyMDE;
+window.hljs = hljs;
