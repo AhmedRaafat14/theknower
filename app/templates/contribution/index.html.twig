@@ -9,7 +9,7 @@
         {% if app.user is empty %}
             <div class="col-md-3">
                 <a class="btn btn-primary btn-social btn-github" href="{{ path('connect_github_start') }}">
-                    <span class="fab fa-github pr-1"></span> Sign in with Github
+                    <span class="fa fa-github pr-1"></span> Sign in with Github
                 </a>
             </div>
         {% else %}
@@ -20,7 +20,7 @@
             </div>
             <div class="col-md-3">
                 <a href="{{ path('app_logout') }}" class="btn btn-dark">
-                    <i class="fas fa-sign-out-alt pr-1"></i>Log out
+                    <i class="fa fa-sign-out pr-1"></i>Log out
                 </a>
             </div>
         {% endif %}
@@ -38,16 +38,16 @@
                     <div class="card-footer rounded-bottom mdb-color lighten-3 pt-3">
                         <ul class="list-unstyled list-inline font-small">
                             <li class="list-inline-item pr-2 white-text">
-                                <i class="fas fa-clock pr-1"></i>{{ contribution.createdAt|date('d/m/y') }}
+                                <i class="fa fa-clock-o pr-1"></i>{{ contribution.createdAt|date('d/m/y') }}
                             </li>
                             <li class="list-inline-item pr-2">
-                                <i class="fas fa-comments pr-1"></i>{{ contribution.commentsCount }}
+                                <i class="fa fa-comments pr-1"></i>{{ contribution.commentsCount }}
                             </li>
                             <li class="list-inline-item pr-2">
-                                <i class="fas fa-thumbs-up pr-1"></i>{{ contribution.likesCount }}
+                                <i class="fa fa-thumbs-up pr-1"></i>{{ contribution.likesCount }}
                             </li>
                             <li class="list-inline-item">
-                                <i class="fas fa-bookmark pr-1"> </i>{{ contribution.bookmarksCount }}
+                                <i class="fa fa-bookmark pr-1"> </i>{{ contribution.bookmarksCount }}
                             </li>
                         </ul>
                     </div>

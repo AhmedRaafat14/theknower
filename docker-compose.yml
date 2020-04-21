@@ -16,7 +16,6 @@ services:
       context: ./docker-containers/php-fpm
     volumes:
       - ./app:/var/www/theknower:cached
-      - ~/ssh/id_rsa:/root/.ssh/id_rsa
       - ./docker-containers/php-fpm/php-ini-local.ini:/usr/local/etc/php/conf.d/php.ini
     depends_on:
       - database
