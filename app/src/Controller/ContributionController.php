@@ -16,9 +16,13 @@ class ContributionController extends AbstractController
     /** @var ContributionRepository */
     protected $contributionRepository;
 
+    /** @var \Parsedown */
+    protected $markdownParser;
+
     public function __construct(ContributionRepository $contributionRepository)
     {
         $this->contributionRepository = $contributionRepository;
+        $this->markdownParser = new \Parsedown();
     }
 
     /**
@@ -57,6 +61,23 @@ class ContributionController extends AbstractController
 
         return $this->render('contribution/add.html.twig', [
             'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/contribution/{id}", methods={"GET"}, name="show_contribution")
+     *
+     * @param Request $request
+     * @param $id
+     * @return Response
+     */
+    public function show(Request $request, $id): Response
+    {
+        $contribution = $this->contributionRepository->find($id);
+        $contribution->setDescription($this->markdownParser->parse($contribution->getDescription()));
+
+        return $this->render('contribution/show.html.twig', [
+            'contribution' => $contribution
         ]);
     }
 }

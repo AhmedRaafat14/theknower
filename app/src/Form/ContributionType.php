@@ -14,29 +14,9 @@ class ContributionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add(
-                'title',
-                TextType::class,
-                array(
-                    'required' => true,
-                    'attr' => array('placeholder' => 'Write descriptive title about this contribution')
-                )
-            )
-            ->add(
-                'summary',
-                TextType::class,
-                array(
-                    'required' => true,
-                    'attr' => array(
-                        'placeholder' => 'Write small summary about the usage/importance of this contribution'
-                    )
-                )
-            )
-            ->add(
-                'description',
-                TextareaType::class,
-                array('label' => 'Contribution Body', 'required' => true,)
-            )
+            ->add('title', TextType::class)
+            ->add('summary', TextType::class)
+            ->add('description', TextareaType::class)
         ;
     }
 

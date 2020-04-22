@@ -1,65 +1,48 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-<div class="container text-center">
-    <div class="row">
-        <div class="col-6">
-            <h1>What we have today!</h1>
-        </div>
-        {% if app.user is empty %}
-            <div class="col-md-3">
-                <a class="btn btn-primary btn-social btn-github" href="{{ path('connect_github_start') }}">
-                    <span class="fa fa-github pr-1"></span> Sign in with Github
-                </a>
-            </div>
-        {% else %}
-            <div class="col-md-3">
-                <a class="btn btn-primary btn-lg" href="{{ path('add_contribution') }}">
-                    <i class="fa fa-plus"></i> Contribute
-                </a>
-            </div>
-            <div class="col-md-3">
-                <a href="{{ path('app_logout') }}" class="btn btn-dark">
-                    <i class="fa fa-sign-out pr-1"></i>Log out
-                </a>
-            </div>
-        {% endif %}
-    </div>
+<div class="col-lg-8">
 
-    <div class="row">
-        {% if contributions is not empty %}
-            {% for contribution in contributions %}
-                <div class="card w-75 text-left border-info mb-3">
-                    <div class="card-body">
-                        <h4 class="card-title">{{ contribution.title }}</h4>
-                        <h6 class="card-subtitle mb-2 text-muted">By {{ contribution.user.username }}</h6>
-                        <p class="card-text">{{ contribution.summary }}</p>
-                    </div>
-                    <div class="card-footer rounded-bottom mdb-color lighten-3 pt-3">
-                        <ul class="list-unstyled list-inline font-small">
-                            <li class="list-inline-item pr-2 white-text">
-                                <i class="fa fa-clock-o pr-1"></i>{{ contribution.createdAt|date('d/m/y') }}
-                            </li>
-                            <li class="list-inline-item pr-2">
-                                <i class="fa fa-comments pr-1"></i>{{ contribution.commentsCount }}
-                            </li>
-                            <li class="list-inline-item pr-2">
-                                <i class="fa fa-thumbs-up pr-1"></i>{{ contribution.likesCount }}
-                            </li>
-                            <li class="list-inline-item">
-                                <i class="fa fa-bookmark pr-1"> </i>{{ contribution.bookmarksCount }}
-                            </li>
-                        </ul>
-                    </div>
+    <!-- Title -->
+    <h1 class="mt-4">What we have today!</h1>
+
+    <!-- page content -->
+    {% if contributions is not empty %}
+        {% for contribution in contributions %}
+            <div class="card w-auto text-left border-info mb-3">
+                <div class="card-body">
+                    <h4 class="card-title">
+                        <a href="{{ path('show_contribution', {'id': contribution.id}) }}">
+                            {{ contribution.title }}
+                        </a>
+                    </h4>
+                    <h6 class="card-subtitle mb-2 text-muted">By {{ contribution.user.username }}</h6>
+                    <p class="card-text">{{ contribution.summary }}</p>
                 </div>
-            {% endfor %}
-        {% else %}
-            <div class="col-md-12">
-                <div class="alert alert-info" role="alert">
-                    There is no contributions yet!
+                <div class="card-footer rounded-bottom mdb-color lighten-3 pt-3">
+                    <ul class="list-unstyled list-inline font-small">
+                        <li class="list-inline-item pr-2 white-text">
+                            <i class="fa fa-clock-o pr-1"></i>{{ contribution.createdAt|date('d/m/y') }}
+                        </li>
+                        <li class="list-inline-item pr-2">
+                            <i class="fa fa-comments pr-1"></i>{{ contribution.commentsCount }}
+                        </li>
+                        <li class="list-inline-item pr-2">
+                            <i class="fa fa-thumbs-up pr-1"></i>{{ contribution.likesCount }}
+                        </li>
+                        <li class="list-inline-item">
+                            <i class="fa fa-bookmark pr-1"> </i>{{ contribution.bookmarksCount }}
+                        </li>
+                    </ul>
                 </div>
             </div>
-        {% endif %}
-    </div>
+        {% endfor %}
+    {% else %}
+        <div class="col-md-12">
+            <div class="alert alert-info" role="alert">
+                There is no contributions yet!
+            </div>
+        </div>
+    {% endif %}
 </div>
 {% endblock %}

@@ -1,15 +1,20 @@
 {% extends 'base.html.twig' %}
 
-{% block body %}
-    <div class="container">
-        {{ form_start(form) }}
-            {{ form_row(form.title) }}
-            {{ form_row(form.summary) }}
-            {{ form_row(form.description) }}
+{% block title %}Add new contribution{% endblock %}
 
-            <button type="submit" class="btn btn-primary">Create!</button>
-        {{ form_end(form) }}
-    </div>
+{% block body %}
+<div class="col-lg-8">
+    <!-- Title -->
+    <h1 class="mt-4">Create new contribution</h1>
+
+    {{ form_start(form, {'attr': {'class': 'card p-1'}}) }}
+    {{ form_row(form.title, {'required': true, 'attr': {'placeholder': 'Write descriptive title about this contribution'}}) }}
+    {{ form_row(form.summary, {'required': true, 'attr': {'placeholder': 'Write small summary about the usage/importance of this contribution'}}) }}
+    {{ form_row(form.description, {'required': true, 'label': 'Contribution Body'}) }}
+
+    <button type="submit" class="btn btn-primary">Create!</button>
+    {{ form_end(form) }}
+</div>
 {% endblock %}
 
 {% block javascripts %}

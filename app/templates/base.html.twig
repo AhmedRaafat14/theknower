@@ -10,15 +10,55 @@
         {% endblock %}
     </head>
     <body>
-        <div class="main-content">
-            {% for message in app.session.flashBag.get('success') %}
-                <div class="alert alert-success">
-                    {{ message }}
-                </div>
-            {% endfor %}
-
-            {% block body %}{% endblock %}
+        <!-- Navigation -->
+        <div class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+            <div class="container">
+                <a class="navbar-brand" href="{{ path('home') }}">
+                    The Knower
+                </a>
+                <ul class="nav navbar-nav navbar-right">
+                    {% if app.user is empty %}
+                        <li><a class="btn btn-primary btn-social btn-github" href="{{ path('connect_github_start') }}">
+                            <span class="fa fa-github pr-1"></span>Sign in with Github
+                        </a></li>
+                    {% else %}
+                        <li><a class="btn btn-primary" href="{{ path('add_contribution') }}">
+                            <i class="fa fa-plus pr-1"></i>Contribute
+                        </a></li>
+                        <li><a class="btn btn-dark" href="{{ path('app_logout') }}">
+                            <i class="fa fa-sign-out pr-1"></i>Log out
+                        </a></li>
+                    {% endif %}
+                </ul>
+            </div>
         </div>
+
+        <!-- Page Content -->
+        <div class="container">
+            <div class="row">
+                {% for message in app.session.flashBag.get('success') %}
+                    <div class="alert alert-success">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+
+                {% block body %}{% endblock %}
+
+                <!-- Sidebar Widgets Column -->
+                <div class="col-md-4">
+                    <!-- Side Widget -->
+                    <div class="card my-4">
+                        <h5 class="card-header">Side Widget</h5>
+                        <div class="card-body">
+                            You can put anything you want inside of these side widgets. They are easy to use, and feature the new Bootstrap 4 card containers!
+                        </div>
+                    </div>
+                </div>
+                <!-- /.Sidebar -->
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container -->
 
         {{ encore_entry_script_tags('app') }}
 

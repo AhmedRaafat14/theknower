@@ -14,6 +14,9 @@ import 'bootstrap';
 import EasyMDE from 'easymde';
 import hljs from 'highlight.js';
 import 'highlight.js/styles/github.css';
+import 'highlight.js/styles/default.css';
+
+hljs.initHighlightingOnLoad();
 
 window.EasyMDE = EasyMDE;
 window.hljs = hljs;
