@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+
 class ContributionController extends AbstractController
 {
     /** @var ContributionRepository */
@@ -79,5 +80,25 @@ class ContributionController extends AbstractController
         return $this->render('contribution/show.html.twig', [
             'contribution' => $contribution
         ]);
+    }
+
+    /**
+     * @Route("/contribution/{id}", methods={"DELETE"}, name="delete_contribution")
+     * @IsGranted("ROLE_USER")
+     *
+     * @param Request $request
+     * @param $id
+     * @return Response
+     */
+    public function delete(Request $request, $id): Response
+    {
+        $contribution = $this->contributionRepository->find($id);
+        $this->denyAccessUnlessGranted('delete', $contribution);
+
+        $this->contributionRepository->remove($contribution);
+
+        $this->addFlash('success', 'Contribution have been deleted successfully!');
+
+        return $this->redirectToRoute('home');
     }
 }

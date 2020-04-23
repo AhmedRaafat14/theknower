@@ -24,4 +24,10 @@ class ContributionRepository extends ServiceEntityRepository
         $this->getEntityManager()->persist($contribution);
         $this->getEntityManager()->flush();
     }
+
+    public function remove(Contribution $contribution): void
+    {
+        $this->getEntityManager()->remove($contribution);
+        $this->getEntityManager()->flush();
+    }
 }
