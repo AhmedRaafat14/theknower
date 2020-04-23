@@ -44,20 +44,52 @@ $ docker-compose exec php composer install
 ```cmd
 $ sudo vim /etc/hosts
 ```
-then add this line to the file `127.0.0.1   phpplanet.local`
+then add this line to the file `127.0.0.1   theknower.local`
 
 5. Run the following command as a step to improve you app load performance:
 ```cmd
 $ docker-compose exec php composer dump-autoload --no-dev --classmap-authoritative
 ```
+After it is done you can find the project at http://theknower.local
 
-6. Run the DB migration:
+
+**Useful Commands:**
+
+* Run the DB migration:
+
 ```cmd
 $ docker-compose exec php bin/console doctrine:migrations:migrate
 ```
-After it is done you can find the project at http://theknower.local
 
-**Useful Commands:**
+* Whenever you want to use any frontend library look
+for it on https://yarnpkg.com/, then install it using
+this command:
+```cmd
+$ docker-compose exec php yarn add highlight.js --dev
+```
+After you done that you have to import it in [app.css](app/assets/css/app.css) or [app.js](app/assets/js/app.js)
+in the same way as the other imported there.
+
+**Please, check [webpack encore docs](https://symfony.com/doc/current/frontend.html)
+to learn more about how to work with the frontend side.**
+
+> This is also useful tutorials: [Webpack Encore: Frontend like a Pro!](https://symfonycasts.com/screencast/webpack-encore), make sure to give it a try if you are new.
+
+* Whenever you do a change to the frontend (css, js) you need to run the yarn build command, 
+I recommend you always keep the following command running in the background to watch your files:
+```cmd
+$ docker-compose exec php yarn watch
+```
+
+* To remove frontend package:
+```cmd
+$ docker-compose exec php yarn remove highlight.js --dev
+```
+
+* To remove composer package:
+```cmd
+$ docker-compose exec php composer remove xxxxx/yyyyyyy
+```
 
 * Clearing the cache:
 ```cmd

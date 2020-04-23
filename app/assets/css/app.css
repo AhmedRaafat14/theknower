@@ -7,3 +7,15 @@
 body {
     padding-top: 56px;
 }
+
+/*To show user avatar as small rounded img*/
+.md-avatar {
+    vertical-align: middle;
+    width: 50px;
+    height: 50px;
+}
+/*The avatar size to be aligned and correct circled img*/
+.md-avatar.size-1 {
+    width: 22px;
+    height: 22px;
+}

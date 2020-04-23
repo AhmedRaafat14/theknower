@@ -16,7 +16,9 @@
                             {{ contribution.title }}
                         </a>
                     </h4>
-                    <h6 class="card-subtitle mb-2 text-muted">By {{ contribution.user.username }}</h6>
+                    <h6 class="card-subtitle mb-2 text-muted">
+                        By <img class="md-avatar rounded-circle size-1 mx-1" src="{{ contribution.user.avatar }}">{{ contribution.user.username }}
+                    </h6>
                     <p class="card-text">{{ contribution.summary }}</p>
                 </div>
                 <div class="card-footer rounded-bottom mdb-color lighten-3 pt-3">
