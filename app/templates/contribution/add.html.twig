@@ -16,12 +16,3 @@
     {{ form_end(form) }}
 </div>
 {% endblock %}
-
-{% block javascripts %}
-    <script>
-        new EasyMDE({
-            element: document.getElementById('contribution_description'),
-            forceSync: true
-        });
-    </script>
-{% endblock %}

@@ -111,9 +111,6 @@
     "jdorn/sql-formatter": {
         "version": "v1.2.17"
     },
-    "kartik-v/krajee-markdown-editor": {
-        "version": "1.0.x-dev"
-    },
     "knpuniversity/oauth2-client-bundle": {
         "version": "1.20",
         "recipe": {

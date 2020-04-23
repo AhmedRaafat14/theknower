@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ad6303c9053f8bea25c677700a84b275",
+    "content-hash": "38b00d37f9a871128e0cb18d42d03031",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -1492,56 +1492,6 @@
                 "sql"
             ],
             "time": "2014-01-12T16:20:24+00:00"
-        },
-        {
-            "name": "kartik-v/krajee-markdown-editor",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/kartik-v/krajee-markdown-editor.git",
-                "reference": "f6c39b267517af7833deac0a47ec815af0f243a3"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/krajee-markdown-editor/zipball/f6c39b267517af7833deac0a47ec815af0f243a3",
-                "reference": "f6c39b267517af7833deac0a47ec815af0f243a3",
-                "shasum": ""
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.0.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "kartik\\plugins\\markdown-editor\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Kartik Visweswaran",
-                    "email": "kartikv2@gmail.com",
-                    "homepage": "http://www.krajee.com/"
-                }
-            ],
-            "description": "A Boostrap styled markdown editor that offers configurable toolbar, live preview, export, fullscreen mode, and more features.",
-            "homepage": "https://github.com/kartik-v/krajee-markdown-editor",
-            "keywords": [
-                "bootstrap",
-                "editor",
-                "export",
-                "extra",
-                "input",
-                "markdown",
-                "markdown it",
-                "preview"
-            ],
-            "time": "2019-05-25T07:01:47+00:00"
         },
         {
             "name": "knpuniversity/oauth2-client-bundle",
@@ -8727,9 +8677,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "kartik-v/krajee-markdown-editor": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

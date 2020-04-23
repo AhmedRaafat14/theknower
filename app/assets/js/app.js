@@ -20,3 +20,14 @@ hljs.initHighlightingOnLoad();
 
 window.EasyMDE = EasyMDE;
 window.hljs = hljs;
+
+// We add an event `load` when the whole DOM is loaded do whatever required
+window.addEventListener('load', function () {
+
+    // Make the contribution description textarea as markdown editor.
+    new EasyMDE({
+        element: document.getElementById('contribution_description'),
+        forceSync: true,
+        spellChecker: true,
+    });
+})

@@ -34,6 +34,6 @@ WORKDIR /var/www/theknower
 CMD ["php-fpm"]
 
 # Using the `wait-for-it` script
-CMD composer install ; wait-for-it database:3306 -- bin/console doctrine:migrations:migrate ;  php-fpm
+CMD composer install ; yarn install ; wait-for-it database:3306 -- bin/console doctrine:migrations:migrate ;  php-fpm
 
 EXPOSE 9000
