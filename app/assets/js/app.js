@@ -24,10 +24,25 @@ window.hljs = hljs;
 // We add an event `load` when the whole DOM is loaded do whatever required
 window.addEventListener('load', function () {
 
-    // Make the contribution description textarea as markdown editor.
-    new EasyMDE({
-        element: document.getElementById('contribution_description'),
-        forceSync: true,
-        spellChecker: true,
-    });
-})
+    // Make the contribution description textarea as markdown editor, only if it s exist for sure
+    if (!!document.getElementById('contribution_description')) {
+        new EasyMDE({
+            element: document.getElementById('contribution_description'),
+            forceSync: true,
+            spellChecker: true,
+        });
+    }
+
+    // If the remove contribution button exist, disable it is default and perform a form submit
+    if (!!document.getElementById('remove_contribution')) {
+        $('#remove_contribution').click(function (e) {
+            e.preventDefault();
+            var form = document.getElementById('delete-contribution-form');
+
+            if (window.confirm('Are you sure you want to delete this contribution?')) {
+                form.submit();
+            }
+        });
+    }
+
+});

@@ -7,12 +7,8 @@
     <!-- Title -->
     <h1 class="mt-4">Create new contribution</h1>
 
-    {{ form_start(form, {'attr': {'class': 'card p-1'}}) }}
-    {{ form_row(form.title, {'required': true, 'attr': {'placeholder': 'Write descriptive title about this contribution'}}) }}
-    {{ form_row(form.summary, {'required': true, 'attr': {'placeholder': 'Write small summary about the usage/importance of this contribution'}}) }}
-    {{ form_row(form.description, {'required': true, 'label': 'Contribution Body'}) }}
-
-    <button type="submit" class="btn btn-primary">Create!</button>
-    {{ form_end(form) }}
+    {{ include('contribution/_form.html.twig', {
+        button_text: 'Publish'
+    }) }}
 </div>
 {% endblock %}

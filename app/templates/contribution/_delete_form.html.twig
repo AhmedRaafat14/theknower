@@ -1,4 +1,3 @@
-<form method="post" action="{{ path('delete_contribution', {'id': contribution.id}) }}" onsubmit="return confirm('Are you sure you want to delete this contribution?');">
+<form class="hidden" id="delete-contribution-form" method="post" action="{{ path('delete_contribution', {'id': contribution.id}) }}">
     <input type="hidden" name="_method" value="DELETE">
-    <button class="btn btn-danger">Delete</button>
 </form>

@@ -37,6 +37,23 @@ class ContributionController extends AbstractController
     }
 
     /**
+     * @Route("/contribution/{id}", methods={"GET"}, name="show_contribution")
+     *
+     * @param Request $request
+     * @param $id
+     * @return Response
+     */
+    public function show(Request $request, $id): Response
+    {
+        $contribution = $this->contributionRepository->find($id);
+        $contribution->setDescription($this->markdownParser->parse($contribution->getDescription()));
+
+        return $this->render('contribution/show.html.twig', [
+            'contribution' => $contribution
+        ]);
+    }
+
+    /**
      * @Route("/contribution", methods={"GET", "POST"}, name="add_contribution")
      * @IsGranted("ROLE_USER")
      */
@@ -66,35 +83,49 @@ class ContributionController extends AbstractController
     }
 
     /**
-     * @Route("/contribution/{id}", methods={"GET"}, name="show_contribution")
+     * @Route("/contribution/{id}/edit", methods={"GET", "POST"}, name="edit_contribution")
+     * @IsGranted("ROLE_USER")
+     * @IsGranted("manage", subject="contribution")
      *
+     * @param Contribution $contribution
      * @param Request $request
      * @param $id
      * @return Response
      */
-    public function show(Request $request, $id): Response
+    public function edit(Contribution $contribution, Request $request, $id): Response
     {
-        $contribution = $this->contributionRepository->find($id);
-        $contribution->setDescription($this->markdownParser->parse($contribution->getDescription()));
+        $form = $this->createForm(ContributionType::class, $contribution);
 
-        return $this->render('contribution/show.html.twig', [
-            'contribution' => $contribution
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $contribution->setUpdatedAt(new \DateTime('now'));
+
+            $this->contributionRepository->save($contribution);
+
+            $this->addFlash('success', 'Contribution updated successfully!');
+
+            return $this->redirectToRoute('show_contribution', [
+                'id' => $contribution->getId()
+            ]);
+        }
+
+        return $this->render('contribution/edit.html.twig', [
+            'form' => $form->createView(),
+            'contribution' => $contribution,
         ]);
     }
 
     /**
-     * @Route("/contribution/{id}", methods={"DELETE"}, name="delete_contribution")
+     * @Route("/contribution/{id}/remove", methods={"DELETE"}, name="delete_contribution")
      * @IsGranted("ROLE_USER")
+     * @IsGranted("manage", subject="contribution")
      *
-     * @param Request $request
+     * @param Contribution $contribution
      * @param $id
      * @return Response
      */
-    public function delete(Request $request, $id): Response
+    public function delete(Contribution $contribution, $id): Response
     {
-        $contribution = $this->contributionRepository->find($id);
-        $this->denyAccessUnlessGranted('delete', $contribution);
-
         $this->contributionRepository->remove($contribution);
 
         $this->addFlash('success', 'Contribution have been deleted successfully!');

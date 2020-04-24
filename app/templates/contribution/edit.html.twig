@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit: {{ contribution.title }}{% endblock %}
+
+{% block body %}
+    <div class="col-lg-8">
+        <!-- Title -->
+        <h1 class="mt-4">Edit Contribution</h1>
+
+        {{ include('contribution/_form.html.twig', {
+            button_text: 'Update'
+        }) }}
+    </div>
+{% endblock %}

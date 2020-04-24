@@ -10,8 +10,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 class ContributionVoter extends Voter
 {
-    private const EDIT = 'edit';
-    private const DELETE = 'delete';
+    private const MANAGE = 'manage';
 
     /** @var Security $security */
     private $security;
@@ -23,7 +22,7 @@ class ContributionVoter extends Voter
 
     protected function supports($attribute, $subject)
     {
-        return in_array($attribute, [self::EDIT, self::DELETE])
+        return in_array($attribute, [self::MANAGE])
             && $subject instanceof Contribution;
     }
 
@@ -38,8 +37,7 @@ class ContributionVoter extends Voter
 
         // ... (check conditions and return true to grant permission) ...
         switch ($attribute) {
-            case self::DELETE:
-            case self::EDIT:
+            case self::MANAGE:
                 if ($this->validateTheOwner($subject)) {
                     return true;
                 }
