@@ -74,7 +74,9 @@ class ContributionController extends AbstractController
 
             $this->addFlash('success', 'Contribution Added successfully!');
 
-            return $this->redirectToRoute('home');
+            return $this->redirectToRoute('show_contribution', [
+                'id' => $contribution->getId()
+            ]);
         }
 
         return $this->render('contribution/add.html.twig', [

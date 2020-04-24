@@ -15,11 +15,13 @@ import EasyMDE from 'easymde';
 import hljs from 'highlight.js';
 import 'highlight.js/styles/github.css';
 import 'highlight.js/styles/default.css';
+import bootbox from 'bootbox';
 
 hljs.initHighlightingOnLoad();
 
 window.EasyMDE = EasyMDE;
 window.hljs = hljs;
+window.bootbox = bootbox;
 
 // We add an event `load` when the whole DOM is loaded do whatever required
 window.addEventListener('load', function () {
@@ -39,9 +41,25 @@ window.addEventListener('load', function () {
             e.preventDefault();
             var form = document.getElementById('delete-contribution-form');
 
-            if (window.confirm('Are you sure you want to delete this contribution?')) {
-                form.submit();
-            }
+            // Confirm the delete action
+            bootbox.confirm({
+                message: "Are you sure you want to delete this contribution?",
+                buttons: {
+                    confirm: {
+                        label: 'Yes',
+                        className: 'btn-success'
+                    },
+                    cancel: {
+                        label: 'No',
+                        className: 'btn-danger'
+                    }
+                },
+                callback: function (result) {
+                    if (result) {
+                        form.submit();
+                    }
+                }
+            });
         });
     }
 
