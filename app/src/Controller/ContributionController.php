@@ -11,7 +11,12 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-
+/**
+ * This will hold whatever actions related on the contributions.
+ *
+ * @Route("/contribution")
+ * Class ContributionController
+ */
 class ContributionController extends AbstractController
 {
     /** @var ContributionRepository */
@@ -27,17 +32,7 @@ class ContributionController extends AbstractController
     }
 
     /**
-     * @Route("/", name="home")
-     */
-    public function index(): Response
-    {
-        return $this->render('contribution/index.html.twig', [
-            'contributions' => $this->contributionRepository->findBy([], ['created_at' => 'ASC']),
-        ]);
-    }
-
-    /**
-     * @Route("/contribution/{id}", methods={"GET"}, name="show_contribution")
+     * @Route("/{id}", methods={"GET"}, name="show_contribution")
      *
      * @param Request $request
      * @param $id
@@ -54,7 +49,7 @@ class ContributionController extends AbstractController
     }
 
     /**
-     * @Route("/contribution", methods={"GET", "POST"}, name="add_contribution")
+     * @Route("/", methods={"GET", "POST"}, name="add_contribution")
      * @IsGranted("ROLE_USER")
      */
     public function add(Request $request): Response
@@ -85,7 +80,7 @@ class ContributionController extends AbstractController
     }
 
     /**
-     * @Route("/contribution/{id}/edit", methods={"GET", "POST"}, name="edit_contribution")
+     * @Route("/{id}/edit", methods={"GET", "POST"}, name="edit_contribution")
      * @IsGranted("ROLE_USER")
      * @IsGranted("manage", subject="contribution")
      *
@@ -118,7 +113,7 @@ class ContributionController extends AbstractController
     }
 
     /**
-     * @Route("/contribution/{id}/remove", methods={"DELETE"}, name="delete_contribution")
+     * @Route("/{id}/remove", methods={"DELETE"}, name="delete_contribution")
      * @IsGranted("ROLE_USER")
      * @IsGranted("manage", subject="contribution")
      *
