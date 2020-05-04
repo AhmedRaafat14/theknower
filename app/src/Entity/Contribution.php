@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -32,16 +34,6 @@ class Contribution
     private $comments_count = 0;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $likes_count = 0;
-
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $bookmarks_count = 0;
-
-    /**
      * @ORM\Column(type="datetime")
      */
     private $created_at;
@@ -61,6 +53,17 @@ class Contribution
      * @ORM\Column(type="text")
      */
     private $summary;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\User", inversedBy="likes_contributions")
+     * @ORM\JoinTable(name="user_likes")
+     */
+    private $likes;
+
+    public function __construct()
+    {
+        $this->likes = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -99,30 +102,6 @@ class Contribution
     public function setCommentsCount(?int $comments_count): self
     {
         $this->comments_count = $comments_count;
-
-        return $this;
-    }
-
-    public function getLikesCount(): ?int
-    {
-        return $this->likes_count;
-    }
-
-    public function setLikesCount(?int $likes_count): self
-    {
-        $this->likes_count = $likes_count;
-
-        return $this;
-    }
-
-    public function getBookmarksCount(): ?int
-    {
-        return $this->bookmarks_count;
-    }
-
-    public function setBookmarksCount(?int $bookmarks_count): self
-    {
-        $this->bookmarks_count = $bookmarks_count;
 
         return $this;
     }
@@ -171,6 +150,32 @@ class Contribution
     public function setSummary(string $summary): self
     {
         $this->summary = $summary;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|User[]
+     */
+    public function getLikes(): Collection
+    {
+        return $this->likes;
+    }
+
+    public function addLike(User $like): self
+    {
+        if (!$this->likes->contains($like)) {
+            $this->likes[] = $like;
+        }
+
+        return $this;
+    }
+
+    public function removeLike(User $like): self
+    {
+        if ($this->likes->contains($like)) {
+            $this->likes->removeElement($like);
+        }
 
         return $this;
     }

@@ -7,6 +7,7 @@ use App\Form\ContributionType;
 use App\Repository\ContributionRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -51,6 +52,8 @@ class ContributionController extends AbstractController
     /**
      * @Route("/", methods={"GET", "POST"}, name="add_contribution")
      * @IsGranted("ROLE_USER")
+     * @param Request $request
+     * @return Response
      */
     public function add(Request $request): Response
     {
@@ -128,5 +131,34 @@ class ContributionController extends AbstractController
         $this->addFlash('success', 'Contribution have been deleted successfully!');
 
         return $this->redirectToRoute('home');
+    }
+
+    /**
+     * @Route("/{id}/likes", name="toggle_likes_contribution")
+     * @IsGranted("ROLE_USER")
+     *
+     * @param Contribution $contribution
+     * @param Request $request
+     * @param $id
+     * @return Response
+     */
+    public function toggleLikes(Contribution $contribution, Request $request, $id): Response
+    {
+        if ($request->isXmlHttpRequest()) {
+            if ($contribution->getLikes()->contains($this->getUser())) {
+                # Remove the logged-in user like for the contribution
+                $contribution->removeLike($this->getUser());
+            } else {
+                # Save that is the logged-in user likes this contribution
+                $contribution->addLike($this->getUser());
+            }
+            $this->contributionRepository->save($contribution);
+
+            return new JsonResponse(array('success' => true, 'new_likes' => count($contribution->getLikes())));
+        }
+
+        return $this->redirectToRoute('show_contribution', [
+            'id' => $contribution->getId()
+        ]);
     }
 }

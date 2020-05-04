@@ -12,7 +12,7 @@
         <!-- Author -->
         <p class="lead">
             by
-            <a href="#">{{ contribution.user.username }}</a>
+            <img class="md-avatar rounded-circle size-1 mx-1" src="{{ contribution.user.avatar }}"><a href="#">{{ contribution.user.username }}</a>
             {% if app.user is not empty and is_granted('manage', contribution) %}
                 -
                 <a title="Edit" href="{{ path('edit_contribution', {id: contribution.id}) }}" class="btn btn-primary">
@@ -33,10 +33,19 @@
 
         <hr>
 
-        <!-- Post Content -->
+        <!-- Contribution Content -->
         <pre class="col-sm-12">
             {{ contribution.description|raw }}
         </pre>
+
+        <hr>
+        <!-- Contribution likes & bookmarks section -->
+        <div class="col-sm-12">
+            <a id="toggle_likes" class="btn {{ (app.user in contribution.likes) ? 'btn-outline-primary' : 'btn-outline-dark' }}" href="#" data-href="{{ path('toggle_likes_contribution', {id: contribution.id}) }}">
+                <i class="fa fa-thumbs-up"></i>
+                <span id="likes_counter">{{ contribution.likes|length }}</span>
+            </a>
+        </div>
 
         <hr>
 

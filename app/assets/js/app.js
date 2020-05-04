@@ -63,4 +63,27 @@ window.addEventListener('load', function () {
         });
     }
 
+    // Like/Dislike action
+    if (!!document.getElementById('toggle_likes')) {
+        $('#toggle_likes').on('click', function (e) {
+            e.preventDefault();
+            $('#toggle_likes').blur(); // Deselect the button after the click
+
+            $.ajax({
+                url: this.dataset.href,
+                dataType: 'json',
+                async: true,
+
+                success: function (data, status) {
+                    $('#toggle_likes').toggleClass('btn-outline-dark').toggleClass('btn-outline-primary');
+                    $('#likes_counter').text(data.new_likes);
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    console.debug(xhr.responseJSON.detail);
+                    bootbox.alert(xhr.responseJSON.title + ". Please, try again later or contact platform team!");
+                }
+            });
+        });
+    }
+
 });

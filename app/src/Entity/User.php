@@ -32,17 +32,7 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    private $bookmarks_count = 0;
-
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
     private $comments_count = 0;
-
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $likes_count = 0;
 
     /**
      * @ORM\Column(type="datetime")
@@ -53,11 +43,6 @@ class User implements UserInterface
      * @ORM\Column(type="datetime")
      */
     private $updated_at;
-
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $contributions_count = 0;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Contribution", mappedBy="user")
@@ -74,9 +59,15 @@ class User implements UserInterface
      */
     private $avatar;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Contribution", mappedBy="likes")
+     */
+    private $likes_contributions;
+
     public function __construct()
     {
         $this->contributions = new ArrayCollection();
+        $this->likes_contributions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -96,18 +87,6 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getBookmarksCount(): ?int
-    {
-        return $this->bookmarks_count;
-    }
-
-    public function setBookmarksCount(?int $bookmarks_count): self
-    {
-        $this->bookmarks_count = $bookmarks_count;
-
-        return $this;
-    }
-
     public function getCommentsCount(): ?int
     {
         return $this->comments_count;
@@ -116,18 +95,6 @@ class User implements UserInterface
     public function setCommentsCount(?int $comments_count): self
     {
         $this->comments_count = $comments_count;
-
-        return $this;
-    }
-
-    public function getLikesCount(): ?int
-    {
-        return $this->likes_count;
-    }
-
-    public function setLikesCount(?int $likes_count): self
-    {
-        $this->likes_count = $likes_count;
 
         return $this;
     }
@@ -152,18 +119,6 @@ class User implements UserInterface
     public function setUpdatedAt(\DateTimeInterface $updated_at): self
     {
         $this->updated_at = $updated_at;
-
-        return $this;
-    }
-
-    public function getContributionsCount(): ?int
-    {
-        return $this->contributions_count;
-    }
-
-    public function setContributionsCount(?int $contributions_count): self
-    {
-        $this->contributions_count = $contributions_count;
 
         return $this;
     }
@@ -263,6 +218,34 @@ class User implements UserInterface
     public function setAvatar(?string $avatar): self
     {
         $this->avatar = $avatar;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Contribution[]
+     */
+    public function getLikesContributions(): Collection
+    {
+        return $this->likes_contributions;
+    }
+
+    public function addLikesContribution(Contribution $likesContribution): self
+    {
+        if (!$this->likes_contributions->contains($likesContribution)) {
+            $this->likes_contributions[] = $likesContribution;
+            $likesContribution->addLike($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLikesContribution(Contribution $likesContribution): self
+    {
+        if ($this->likes_contributions->contains($likesContribution)) {
+            $this->likes_contributions->removeElement($likesContribution);
+            $likesContribution->removeLike($this);
+        }
 
         return $this;
     }
