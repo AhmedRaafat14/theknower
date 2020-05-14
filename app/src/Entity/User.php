@@ -30,11 +30,6 @@ class User implements UserInterface
     private $github_id;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $comments_count = 0;
-
-    /**
      * @ORM\Column(type="datetime")
      */
     private $created_at;
@@ -64,10 +59,16 @@ class User implements UserInterface
      */
     private $likes_contributions;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="user", orphanRemoval=true)
+     */
+    private $comments;
+
     public function __construct()
     {
         $this->contributions = new ArrayCollection();
         $this->likes_contributions = new ArrayCollection();
+        $this->comments = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -83,18 +84,6 @@ class User implements UserInterface
     public function setGithubId(string $github_id): self
     {
         $this->github_id = $github_id;
-
-        return $this;
-    }
-
-    public function getCommentsCount(): ?int
-    {
-        return $this->comments_count;
-    }
-
-    public function setCommentsCount(?int $comments_count): self
-    {
-        $this->comments_count = $comments_count;
 
         return $this;
     }
@@ -245,6 +234,37 @@ class User implements UserInterface
         if ($this->likes_contributions->contains($likesContribution)) {
             $this->likes_contributions->removeElement($likesContribution);
             $likesContribution->removeLike($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Comment[]
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comment $comment): self
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments[] = $comment;
+            $comment->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comment $comment): self
+    {
+        if ($this->comments->contains($comment)) {
+            $this->comments->removeElement($comment);
+            // set the owning side to null (unless already changed)
+            if ($comment->getUser() === $this) {
+                $comment->setUser(null);
+            }
         }
 
         return $this;

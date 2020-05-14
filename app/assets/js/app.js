@@ -26,12 +26,13 @@ window.bootbox = bootbox;
 // We add an event `load` when the whole DOM is loaded do whatever required
 window.addEventListener('load', function () {
 
-    // Make the contribution description textarea as markdown editor, only if it s exist for sure
+    // Make the contribution description textarea as markdown editor, only if it is exist for sure
     if (!!document.getElementById('contribution_description')) {
         new EasyMDE({
             element: document.getElementById('contribution_description'),
             forceSync: true,
             spellChecker: true,
+            hideIcons: ["fullscreen"],
         });
     }
 
@@ -86,4 +87,44 @@ window.addEventListener('load', function () {
         });
     }
 
+    // Make the comments description textarea as markdown editor, only if it is exist for sure
+    if (!!document.getElementById('comment_body')) {
+        enableMarkdownOnCommentEditor();
+    }
+
+    // Add comment form is exist
+    if (!!document.getElementById('add_comment')) {
+        $('#add_comment').submit(function (event) {
+            event.preventDefault();
+            var form = $(this);
+
+            $.ajax({
+                type: 'POST',
+                url: form.prop('action'),
+                data: form.serialize(),
+                dataType: 'json',
+                async: true,
+
+                success: function (data, status) {
+                    $('#comments-section').html(data.template);
+                    enableMarkdownOnCommentEditor();
+                    bootbox.alert("Your comment added successfully!");
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    console.debug(xhr.responseJSON.detail);
+                    bootbox.alert(xhr.responseJSON.title + ". Please, try again later or contact platform team!");
+                }
+            });
+        });
+    }
 });
+
+function enableMarkdownOnCommentEditor() {
+    new EasyMDE({
+        element: document.getElementById('comment_body'),
+        forceSync: true,
+        spellChecker: true,
+        minHeight: "150px",
+        hideIcons: ["fullscreen"],
+    });
+}

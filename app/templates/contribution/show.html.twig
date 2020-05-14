@@ -29,7 +29,7 @@
         <hr>
 
         <!-- Date/Time -->
-        <p>Posted on {{ contribution.createdAt|date('F j, Y, g:i a') }}</p>
+        <p>Last updated on {{ contribution.createdAt|date('F j, Y, g:i a') }}</p>
 
         <hr>
 
@@ -39,30 +39,30 @@
         </pre>
 
         <hr>
+
         <!-- Contribution likes & bookmarks section -->
         <div class="col-sm-12">
-            <a id="toggle_likes" class="btn {{ (app.user in contribution.likes) ? 'btn-outline-primary' : 'btn-outline-dark' }}" href="#" data-href="{{ path('toggle_likes_contribution', {id: contribution.id}) }}">
-                <i class="fa fa-thumbs-up"></i>
-                <span id="likes_counter">{{ contribution.likes|length }}</span>
-            </a>
+            {% if app.user is not empty and not is_granted('manage', contribution) %}
+                <a id="toggle_likes" class="btn {{ (app.user in contribution.likes) ? 'btn-outline-primary' : 'btn-outline-dark' }}" href="#" data-href="{{ path('toggle_likes_contribution', {id: contribution.id}) }}">
+                    <i class="fa fa-thumbs-up"></i>
+                    <span id="likes_counter">{{ contribution.likes|length }}</span>
+                </a>
+            {% else %}
+                <a class="btn btn-outline-primary disabled" href="#">
+                    <i class="fa fa-thumbs-up"></i>
+                    <span>{{ contribution.likes|length }}</span>
+                </a>
+            {% endif %}
         </div>
 
         <hr>
 
-        <!-- Comments Form -->
-        <!--
-       <div class="card my-4">
-           <h5 class="card-header">Leave a Comment:</h5>
-           <div class="card-body">
-               <form>
-                   <div class="form-group">
-                       <textarea class="form-control" rows="3"></textarea>
-                   </div>
-                   <button type="submit" class="btn btn-primary">Submit</button>
-               </form>
-           </div>
-       </div>
-       -->
+        <!-- Comments Section -->
+        <div id="comments-section">
+            {{ include('comment/index.html.twig') }}
+        </div>
+
+
     </div>
 
 {% endblock %}

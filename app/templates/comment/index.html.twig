@@ -1,0 +1,48 @@
+<ul class="nav nav-tabs" id="comments-section-tabs" role="tablist">
+    <li class="nav-item">
+        <a class="nav-link active" id="comments-tab" data-toggle="tab" href="#comments" role="tab" aria-controls="comments" aria-selected="true">
+            Comments ({{ contribution.comments|length }})
+        </a>
+    </li>
+    {% if app.user is not empty %}
+        <li class="nav-item">
+            <a class="nav-link" id="add-comment-tab" data-toggle="tab" href="#add-comment" role="tab" aria-controls="add-comment" aria-selected="false">
+                Leave a Comment
+            </a>
+        </li>
+    {% endif %}
+</ul>
+<div class="tab-content mt-4" id="comments-section-content">
+    <div class="tab-pane fade show active" id="comments" role="tabpanel" aria-labelledby="comments-tab">
+        {% for comment in contribution.comments|sort((a, b) => a.updatedAt <=> b.updatedAt)|reverse  %}
+            <div class="media">
+                <img class="mr-3 md-avatar rounded-circle size-2" src="{{ comment.user.avatar }}" alt="Generic placeholder image">
+                <div class="media-body">
+                    <h5 class="mt-0">{{ comment.user.username }}</h5>
+                    <sup>On {{ comment.createdAt|date('F j, Y, g:i a') }}</sup>
+                    <p>
+                        {{ comment.content }}
+                    </p>
+                </div>
+            </div>
+            <hr>
+        {% endfor %}
+    </div>
+
+    {% if app.user is not empty %}
+        <div class="tab-pane fade" id="add-comment" role="tabpanel" aria-labelledby="add-comment-tab">
+            <div class="card my-4">
+                <div class="card-body">
+                    <form name="comment" id="add_comment" class="comments-form" method="post" action="{{ path('add_comment', {contributionId: contribution.id}) }}">
+                        <div class="form-group">
+                            <textarea name="content" id="comment_body" class="form-control"></textarea>
+                        </div>
+                        <div class="text-right">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+</div>

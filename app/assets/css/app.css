@@ -19,3 +19,8 @@ body {
     width: 22px;
     height: 22px;
 }
+
+.md-avatar.size-2 {
+    width: 30px;
+    height: 30px;
+}

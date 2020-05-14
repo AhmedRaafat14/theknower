@@ -27,7 +27,7 @@
                                 <i class="fa fa-clock-o pr-1"></i>{{ contribution.createdAt|date('d/m/y') }}
                             </li>
                             <li class="list-inline-item pr-2 text-primary">
-                                <i class="fa fa-comments pr-1"></i>{{ contribution.commentsCount }}
+                                <i class="fa fa-comments pr-1"></i>{{ contribution.comments|length }}
                             </li>
                             <li class="list-inline-item pr-2 text-primary">
                                 <i class="fa fa-thumbs-up pr-1"></i>{{ contribution.likes|length }}

@@ -29,11 +29,6 @@ class Contribution
     private $description;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $comments_count = 0;
-
-    /**
      * @ORM\Column(type="datetime")
      */
     private $created_at;
@@ -60,9 +55,15 @@ class Contribution
      */
     private $likes;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="contribution", orphanRemoval=true)
+     */
+    private $comments;
+
     public function __construct()
     {
         $this->likes = new ArrayCollection();
+        $this->comments = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -90,18 +91,6 @@ class Contribution
     public function setDescription(?string $description): self
     {
         $this->description = $description;
-
-        return $this;
-    }
-
-    public function getCommentsCount(): ?int
-    {
-        return $this->comments_count;
-    }
-
-    public function setCommentsCount(?int $comments_count): self
-    {
-        $this->comments_count = $comments_count;
 
         return $this;
     }
@@ -175,6 +164,37 @@ class Contribution
     {
         if ($this->likes->contains($like)) {
             $this->likes->removeElement($like);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Comment[]
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comment $comment): self
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments[] = $comment;
+            $comment->setContribution($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comment $comment): self
+    {
+        if ($this->comments->contains($comment)) {
+            $this->comments->removeElement($comment);
+            // set the owning side to null (unless already changed)
+            if ($comment->getContribution() === $this) {
+                $comment->setContribution(null);
+            }
         }
 
         return $this;
