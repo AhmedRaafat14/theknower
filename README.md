@@ -1,10 +1,10 @@
 # TheKnower
 
 #### Disclaimer:
-Don't expect too much advanced things here this project and this repository
-maid mainly for the starters for anyone wants to see a good example of symfony,
-docker and webpack encore working together in one project so don't
-expect too much or too less if you are a starter or interested in this code.
+Don't expect too much advanced things here. This project and this repository
+are made mainly for starters or for anyone who wants to see a good example of Symfony,
+Docker and Webpack Encore working together in one project. So don't
+expect too much or too little if you are a starter or interested in this code.
 
 **What you can expect:**
 * You can find [screenshots here](images) if you want to see samples before running it locally.
@@ -14,8 +14,8 @@ ________________________
 > #### From the community to the community.
 > The Knower: is someone who has the knowledge of everything about everything in a specific domain.
 
-How many times you have searching for something over & over & over again!
-or you got to know something cool you think it can be helpful for other people!
+How many times have you been searching for something over & over & over again?!
+Or have you got to know something cool you think it can be helpful for other people?!
 
 That is why I created this platform a place you can find
 a lot of shared things or whatever related that is
