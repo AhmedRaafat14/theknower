@@ -16,9 +16,7 @@ before_install:
   - cat docker-compose.yml
 
 script:
+  - cp .env.dist .env
   - docker-compose build
   - docker-compose up -d
   - docker-compose ps
-  - docker-compose exec -T php composer req sensiolabs/security-checker
-  - docker-compose exec -T php bin/console security:check
-  - curl -k https://localhost

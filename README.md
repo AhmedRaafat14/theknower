@@ -1,22 +1,27 @@
 # TheKnower
 
-> #### From the community to the community.
-> The Knower: is someone who has the knowledge of everything about some topics.
+#### Disclaimer:
+Don't expect too much advanced things here this project and this repository
+maid mainly for the starters for anyone wants to see a good example of symfony,
+docker and webpack encore working together in one project so don't
+expect too much or too less if you are a starter or interested in this code.
 
-How many times you have searching for same functions over & over & over again!
-or even a class, or you wrote some cool function/class 
-that you think it can be helpful for other developers
-like you!
+**What you can expect:**
+* You can find [screenshots here](images) if you want to see samples before running it locally.
+
+________________________
+
+> #### From the community to the community.
+> The Knower: is someone who has the knowledge of everything about everything in a specific domain.
+
+How many times you have searching for something over & over & over again!
+or you got to know something cool you think it can be helpful for other people!
 
 That is why I created this platform a place you can find
-a lot of shared PHP functions/classes or whatever related that is
-shared by the PHP community to help other PHP developers.
+a lot of shared things or whatever related that is
+shared by the other people to help you.
 
-You will not only find people sharing native PHP code
-snippets but also frameworks related stuff
-will be there. It is your platform you decide what you want
-to share with the community.
-
+That is why I call it it is from community to community.
 
 **Requirements:**
 
